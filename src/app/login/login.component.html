@@ -1,0 +1,28 @@
+<div class="container-fluid" fxLayout="column" fxLayoutGap="10px">
+
+  <form novalidate [formGroup]="loginForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row space_top space_left">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Email:</mat-label>
+        <input matInput formControlName="email" type="text" placeholder="Enter your email Id" required>
+        <mat-hint>
+          <span [hidden]="!(formErrors.email)">
+            {{formErrors.email}}</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="row space_left">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Password:</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Enter your password" required>
+        <mat-hint>
+          <span [hidden]="!(formErrors.password)">
+            {{formErrors.password}}</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="row space_left">
+      <button type="submit" class="btn btn-lg btn-warning" [disabled]="loginForm.invalid">Log in</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,143 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <span class="fa fa-bars fa-lg"></span>
+    </button>
+    <h1 class="example-app-name">Dashboard</h1>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a *ngIf="username">{{username}}</a>
+    <a *ngIf="username" mat-button (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span> Logout</a>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="400">
+      <mat-list-item>
+        <mat-card class="card-size">
+          <mat-card-header>
+            <div mat-card-avatar class="header-image"></div>
+            <mat-card-title>Anku Garg</mat-card-title>
+            <mat-card-subtitle>Technical</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </mat-list-item>
+      <mat-nav-list>
+        <mat-list-item>
+        <span id="text_color">
+          {{hour}} hour : {{minute}} minute : {{seconds}} seconds
+        </span>
+      </mat-list-item>
+      <mat-list-item>
+        <button class="btn btn-sm btn-primary" (click)="startTimer()">Start Timer</button>&nbsp;
+        <button class="btn btn-sm btn-primary" (click)="stopTimer()">Stop Timer</button>
+      </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+   
+    <!-- <mat-sidenav-content>
+
+      <mat-accordion>
+                <mat-select>
+            <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{category.viewValue}}
+              </mat-option>
+           </mat-select>
+          </mat-accordion> -->
+
+      <!-- <mat-accordion>
+          
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              
+            </mat-panel-title>
+      
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <span>Monday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Tuesday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Wednesday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Thursday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Friday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Saturday</span>
+          </mat-panel-description>
+
+          <mat-panel-description>
+            <span>Sunday</span>
+          </mat-panel-description>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Last Week
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            <span>Monday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Tuesday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Wednesday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Thursday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Friday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Saturday</span>
+          </mat-panel-description>
+          <mat-panel-description>
+            <span>Sunday</span>
+          </mat-panel-description>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              By Date
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+    <!-- </mat-sidenav-content> -->
+    <!-- <div fxLayout="row">
+    <mat-form-field fxFlexOffset="10px">
+    <mat-select [(value)]="selected">
+        <mat-option *ngFor="let category of categories" [value]="category.value">
+            {{category.value}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+  {{selected}} -->
+  <!-- <mat-list>
+    <mat-list-item *ngFor="">
+
+    </mat-list-item>
+  </mat-list> -->
+  
+  </mat-sidenav-container>
+</div>

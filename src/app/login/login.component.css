@@ -1,0 +1,22 @@
+#form_setting {
+    margin-left: 50px;
+}
+
+/* #box {
+    border: 1px solid red;
+    margin: 0;
+    width: 320px;
+} */
+
+
+.space_left {
+    margin-left: 50px;
+}
+
+.space_top {
+    margin-top: 50px;
+}
+
+.half-width {
+    width: 30%;
+}

@@ -12,6 +12,13 @@ interface AuthResponse {
   data: any
 };
 
+interface JWTResponse {
+  status: string,
+  success: string,
+  user: any
+};
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,14 +50,26 @@ export class AuthService {
     this.user = undefined;
   }
 
+  checkJWTtoken() {
+    this.http.get<JWTResponse>('http:localhost:4000/checkJWTtoken')
+    .subscribe(res => {
+      console.log("JWT Token Valid: ", res);
+      this.sendUsername(res.user.username);
+    },
+    err => {
+      console.log("JWT Token invalid: ", err);
+      this.destroyUserCredentials();
+    })
+  }
+
   loadUserCredentials() {
     var credentials = JSON.parse(localStorage.getItem(this.tokenKey));
     console.log("loadUserCredentials ", credentials);
     if (credentials && credentials.email != undefined) {
       console.log("Inside Credentials")
       this.useCredentials(credentials);
-      // if (this.authToken)
-      //   this.checkJWTtoken();
+      //  if (this.authToken)
+      //     this.checkJWTtoken();
     }
   }
 
@@ -84,6 +103,9 @@ export class AuthService {
       console.log("Response", res);
       this.storeUserCredentials({email: user.email, token: res.token, id: res.data.id});
       return {'success': true, 'email': user.email };
+    },
+    err => {
+      console.log(err.error.message);
     }))
   }
 

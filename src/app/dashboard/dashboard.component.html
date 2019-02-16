@@ -3,10 +3,15 @@
     <button mat-icon-button (click)="snav.toggle()">
       <span class="fa fa-bars fa-lg"></span>
     </button>
-    <h1 class="example-app-name">Dashboard</h1>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <a *ngIf="username">{{username}}</a>
-    <a *ngIf="username" mat-button (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span> Logout</a>
+    <span>
+      <h1 class="example-app-name">Dashboard</h1>
+    </span>
+    <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+    <span class="display-right"></span>
+    <span>
+      <a *ngIf="username">{{username}}</a>
+      <a *ngIf="username" mat-button (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span> Logout</a>
+    </span>
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -16,128 +21,98 @@
         <mat-card class="card-size">
           <mat-card-header>
             <div mat-card-avatar class="header-image"></div>
-            <mat-card-title>Anku Garg</mat-card-title>
+            <mat-card-title>{{username}}</mat-card-title>
             <mat-card-subtitle>Technical</mat-card-subtitle>
           </mat-card-header>
         </mat-card>
       </mat-list-item>
       <mat-nav-list>
         <mat-list-item>
-        <span id="text_color">
-          {{hour}} hour : {{minute}} minute : {{seconds}} seconds
-        </span>
-      </mat-list-item>
-      <mat-list-item>
-        <button class="btn btn-sm btn-primary" (click)="startTimer()">Start Timer</button>&nbsp;
-        <button class="btn btn-sm btn-primary" (click)="stopTimer()">Stop Timer</button>
+          <span id="text_color">
+            {{hour}} hours : {{minute}} minutes : {{seconds}} seconds
+          </span>
+        </mat-list-item>
+        <mat-list-item>
+          <button class="btn btn-sm btn-primary" (click)="startTimer()">Start Timer</button>&nbsp;
+          <button class="btn btn-sm btn-primary" (click)="stopTimer()">Stop Timer</button>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-nav-list>
+        <mat-list-item>
+          <button class="btn btn-sm btn-warning" (click)="startLunchTimer()">Lunch In</button>&nbsp;
+          <button class="btn btn-sm btn-warning" (click)="stopLunchTimer()">Lunch out</button>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-nav-list>
+        <mat-list-item>
+            
+        <!-- <label class="switch"><mat-checkbox id="togBtn" >Hide required marker</mat-checkbox><div class="slider round"><span class="on">Clocked In</span><span class="off">Clocked Out</span></div></label> -->
+        <!-- <label class="switch"><input type="checkbox" id="togBtn"><div class="slider round"><span class="on">Clocked In</span><span class="off">Clocked Out</span></div></label> -->
       </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
 
-   
-    <!-- <mat-sidenav-content>
+    <mat-sidenav-content>
+      &nbsp; <button class="btn btn-lg btn-danger" mat-button [matMenuTriggerFor]="menu">Options&nbsp;<span class="fa fa-arrow-down"></span></button>
+      <mat-divider></mat-divider>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="currentWeekData()">Current Week</button>
+        <button mat-menu-item (click)="lastWeekData()">Last Week</button>
+        <button mat-menu-item (click)="displayByDate()">By Date</button>
+      </mat-menu>
+      <div *ngIf='!flag && item'>
+        <mat-list *ngFor="let i of item">
+          <mat-list-item>
+            <span>{{ i.clock_in}}</span>
+            <span class="display-right"></span>
+            <span>{{ i.total_hour }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+      <div *ngIf='flag'>
+        <div class="space_left">
+          <form novalidate [formGroup]="datepicker" #fform="ngForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" formControlName="startDate" placeholder="Choose a starting date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker2" formControlName="endDate" placeholder="Choose a ending date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field>
+              <mat-select placeholder="Select" formControlName="day">
+                <mat-option value="Mon">Monday</mat-option>
+                <mat-option value="Tue">Tuesday</mat-option>
+                <mat-option value="Wed">Wednesday</mat-option>
+                <mat-option value="Thr">Thrusday</mat-option>
+                <mat-option value="Fri">Friday</mat-option>
+                <mat-option value="Sat">Saturday</mat-option>
+                <mat-option value="Sun">Sunday</mat-option>
+              </mat-select>
+            </mat-form-field>
+            &nbsp;
+            <button type="submit" class="btn btn-lg btn-warning">Result</button>
+          </form>
+        </div>
+        <div *ngIf='flag'>
+          <mat-list *ngFor="let i of item">
+            <mat-list-item>
+              <span>{{ i.clock_in}}</span>
+              <span class="display-right"></span>
+              <span>{{ i.total_hour }}</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+      </div>
+    </mat-sidenav-content>
 
-      <mat-accordion>
-                <mat-select>
-            <mat-option *ngFor="let category of categories" [value]="category.value">
-                {{category.viewValue}}
-              </mat-option>
-           </mat-select>
-          </mat-accordion> -->
 
-      <!-- <mat-accordion>
-          
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              
-            </mat-panel-title>
-      
-          </mat-expansion-panel-header>
-          <mat-panel-description>
-            <span>Monday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Tuesday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Wednesday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Thursday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Friday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Saturday</span>
-          </mat-panel-description>
-
-          <mat-panel-description>
-            <span>Sunday</span>
-          </mat-panel-description>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Last Week
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-panel-description>
-            <span>Monday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Tuesday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Wednesday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Thursday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Friday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Saturday</span>
-          </mat-panel-description>
-          <mat-panel-description>
-            <span>Sunday</span>
-          </mat-panel-description>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              By Date
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-panel-description>
-          </mat-panel-description>
-        </mat-expansion-panel>
-      </mat-accordion> -->
-    <!-- </mat-sidenav-content> -->
-    <!-- <div fxLayout="row">
-    <mat-form-field fxFlexOffset="10px">
-    <mat-select [(value)]="selected">
-        <mat-option *ngFor="let category of categories" [value]="category.value">
-            {{category.value}}
-        </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-  {{selected}} -->
-  <!-- <mat-list>
-    <mat-list-item *ngFor="">
-
-    </mat-list-item>
-  </mat-list> -->
-  
   </mat-sidenav-container>
 </div>

@@ -12,13 +12,14 @@ import { AuthService } from './services/auth.service';
 
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
   MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
   MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
-  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule
+  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule,MatNativeDateModule
 } from '@angular/material';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -53,7 +54,7 @@ const routes: Routes = [
     MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
     MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
     MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule,MatSidenavModule,
-    MatExpansionModule,
+    MatExpansionModule,MatMenuModule,MatNativeDateModule,
  
     RouterModule.forRoot(
       routes, {
